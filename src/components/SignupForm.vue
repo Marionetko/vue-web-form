@@ -12,6 +12,12 @@
             <option value="designer">Web designer</option>
         </select>
 
+        <label>Skills:</label>
+        <input type="text" v-model="tempSkill" @keyup.alt="addSkill">
+        <div v-for="skill in skills" :key="skill" class="pill">
+            {{ skill }}
+        </div>
+
         <div class="terms">
             <input type="checkbox" v-model="terms" required>
             <label>Accept terms and conditions</label>
@@ -46,7 +52,19 @@ export default {
             password: '',
             role: 'designer',
             terms: false,
+            tempSkill: '',
+            skills: []
             // names: []
+        }
+    },
+    methods: {
+        addSkill(e) {
+            if (e.key === ',' && this.tempSkill) {
+                if (!this.skills.includes(this.tempSkill)) {
+                    this.skills.push(this.tempSkill);
+                }
+                this.tempSkill = '';
+            }
         }
     }
 }
